@@ -22,12 +22,10 @@ import javax.swing.JFrame;
 public final class LevelGenerator extends JFrame {
 
     private HashMap<String, ItemObject> objects = new HashMap<>();
-    private ItemObject[][] currentMap;
-    private int HEIGHT = 320;
-    private int WIDHT = 480;
+    private int HEIGHT = 500;
+    private int WIDTH = 750;
 
     public JFrame frame = null;
-
     public Level currentLevel = null;
 
     private final List<Level> levels
@@ -39,45 +37,33 @@ public final class LevelGenerator extends JFrame {
                 }
             };
 
-    public LevelGenerator() {
+    public LevelGenerator(JFrame frame) {
         // Vul de frame
-        //this.frame = frame;
+        this.frame = frame;
         // Vul de objecten lijst
-        //objects.put("B", new Bazooka());
+        objects.put("B", new Bazooka());
         objects.put("", new EmptyTile());
         objects.put("W", new Wall());
         this.currentLevel = levels.get(0);
-        currentMap = new ItemObject[15][10];
-        
-        
+
         this.Load();
     }
 
     /// Laad de map in
     public void Load() {
-        int rowsCount = 0;
-        int colsCount = 0;
-        
-        for (String[] row : this.currentLevel.map) {
-            for (String col : row) {
-                this.currentMap[colsCount][rowsCount] = objects.get(col);
-                colsCount += 1;
-            }
-
-            rowsCount += 1;
-        }
+        this.currentLevel.Load(objects);
 
         this.Start();
     }
 
     public void Start() {
-
-        this.frame.setSize(this.HEIGHT, this.WIDHT);
-        this.frame.setLayout(new GridLayout(15, 10));
-        this.frame.add(this.currentLevel);
-        this.frame.setResizable(false);
-        this.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.frame.setVisible(true);
-
+        if (this.frame != null) {
+            this.frame.setSize(this.WIDTH, this.HEIGHT);
+            this.frame.setLayout(new GridLayout(15, 10));
+            this.frame.add(this.currentLevel);
+            this.frame.setResizable(false);
+            this.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            this.frame.setVisible(true);
+        }
     }
 }

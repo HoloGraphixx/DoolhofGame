@@ -19,14 +19,9 @@ public class Game {
      */
     public static void main(String[] args) {
        
-        
-        LevelGenerator load = new LevelGenerator();
-        
-        
-        
-      
-        //frame = new JFrame("Doolhof");
-        
+        JFrame frame = new JFrame();
+        LevelGenerator load = new LevelGenerator(frame);
+                
     }
     
 }
