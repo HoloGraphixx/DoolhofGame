@@ -3,21 +3,17 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.maze.levels;
-
-import javax.swing.JComponent;
+package com.maze.game;
 
 /**
  *
  * @author Thomas
  */
-
-
-public class Level extends JComponent {
+public class ItemObject {
+   
+    public int x = 0;
+    public int y = 0;
     
-    final int ROWS = 10;
-    final int COLUMNS = 15;
-    
-    public String[][] map = new String[COLUMNS][ROWS];
+    public String image = "";
     
 }

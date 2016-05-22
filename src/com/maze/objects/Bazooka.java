@@ -3,21 +3,19 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.maze.levels;
+package com.maze.objects;
 
-import javax.swing.JComponent;
+import com.maze.game.ItemObject;
 
 /**
  *
  * @author Thomas
  */
-
-
-public class Level extends JComponent {
+public class Bazooka extends ItemObject {
     
-    final int ROWS = 10;
-    final int COLUMNS = 15;
-    
-    public String[][] map = new String[COLUMNS][ROWS];
+    public void test() {
+        super.x = 0;
+        super.y = 0;
+    }
     
 }

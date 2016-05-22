@@ -5,19 +5,10 @@
  */
 package com.maze.levels;
 
-import javax.swing.JComponent;
-
 /**
  *
  * @author Thomas
  */
-
-
-public class Level extends JComponent {
-    
-    final int ROWS = 10;
-    final int COLUMNS = 15;
-    
-    public String[][] map = new String[COLUMNS][ROWS];
+public class Level003 extends Level {
     
 }

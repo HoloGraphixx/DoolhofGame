@@ -5,19 +5,23 @@
  */
 package com.maze.game;
 
+import javax.swing.JFrame;
+
 /**
  *
  * @author thomas_laptop
  */
 public class Game {
 
+    public static JFrame frame;
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
-        //Platform platform = new Platform();
-        //platform.show();
+        frame = new JFrame("Doolhof");
+        frame.setResizable(false);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setVisible(true);
     }
     
 }
