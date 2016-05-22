@@ -20,4 +20,4 @@ public class Level extends JComponent {
     
     public String[][] map = new String[COLUMNS][ROWS];
     
-}
+    }
