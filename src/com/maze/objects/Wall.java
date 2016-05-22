@@ -9,14 +9,14 @@ import com.maze.game.ItemObject;
 
 /**
  *
- * @author Thomas
+ * @author Tony
  */
-public class EmptyTile extends ItemObject {
-    
-    public EmptyTile(){
-        
-        this.setImage("Empty.png");
+public class Wall extends ItemObject {
+
+    public Wall() {
+
+        this.setImage("Wall.png");
         
     }
-    
+
 }

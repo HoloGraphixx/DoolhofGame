@@ -13,15 +13,20 @@ import javax.swing.JFrame;
  */
 public class Game {
 
-    public static JFrame frame;
+    //public static JFrame frame;
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        frame = new JFrame("Doolhof");
-        frame.setResizable(false);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setVisible(true);
+       
+        
+        LevelGenerator load = new LevelGenerator();
+        
+        
+        
+      
+        //frame = new JFrame("Doolhof");
+        
     }
     
 }
