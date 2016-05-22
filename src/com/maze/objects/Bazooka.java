@@ -13,9 +13,8 @@ import com.maze.game.ItemObject;
  */
 public class Bazooka extends ItemObject {
     
-    public void test() {
-        super.x = 0;
-        super.y = 0;
+    public Bazooka() {        
+        this.setImage("Bazooka.png");
     }
     
 }

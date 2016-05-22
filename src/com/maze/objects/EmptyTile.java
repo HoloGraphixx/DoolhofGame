@@ -14,9 +14,7 @@ import com.maze.game.ItemObject;
 public class EmptyTile extends ItemObject {
     
     public EmptyTile(){
-        
         this.setImage("Empty.png");
-        
     }
     
 }

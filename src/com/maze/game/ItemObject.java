@@ -24,6 +24,6 @@ public class ItemObject {
     }
     
     public void setImage(String url) {
-       this.image = "/com/maze/images/" + url;
+       this.image = "src/com/maze/images/" + url;
     }  
 }
