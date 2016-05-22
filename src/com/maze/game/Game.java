@@ -3,21 +3,21 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package doolhofgame;
+package com.maze.game;
 
 /**
  *
  * @author thomas_laptop
  */
-public class DoolhofGame {
+public class Game {
 
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
         // TODO code application logic here
-        Platform platform = new Platform();
-        platform.show();
+        //Platform platform = new Platform();
+        //platform.show();
     }
     
 }
