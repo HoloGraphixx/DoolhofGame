@@ -6,10 +6,14 @@
 package com.maze.levels;
 
 import com.maze.game.ItemObject;
+import com.maze.game.Player;
+import com.maze.objects.Wall;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.util.HashMap;
 import javax.swing.JPanel;
 
@@ -26,6 +30,26 @@ public class Level extends JPanel implements ActionListener {
     
     public String[][] map = new String[ROWS][COLUMNS];
     public ItemObject[][] loadedMap = new ItemObject[ROWS][COLUMNS];
+    
+    private Player p = new Player();
+    
+    public Level() {
+        addKeyListener(new Al());
+        setFocusable(true);
+    }
+    
+    public ItemObject getObject(int x, int y) {
+        ItemObject value;
+        
+        value = this.loadedMap[y][x];
+        
+        return value;
+    }
+    
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        
+    }
     
     public void Load(HashMap<String, ItemObject> objects) {
         int rowsCount = 0;
@@ -58,11 +82,44 @@ public class Level extends JPanel implements ActionListener {
 
             rowsCount += 1;
         }
-    }
-    
-    @Override
-    public void actionPerformed(ActionEvent e) {
         
+        g.drawImage(p.image, p.getTileX() * 50, p.getTileY() * 50, null);
+        
+        repaint();
     }
     
+    public class Al extends KeyAdapter {
+     
+        @Override
+        public void keyPressed(KeyEvent e) {
+            Wall wall = new Wall();
+            
+            int keycode = e.getKeyCode();
+         
+            if (keycode == KeyEvent.VK_W) {
+                if (!getObject(p.getTileX(), p.getTileY() - 1).getClass().equals(wall.getClass())) {
+                    p.move(0, -1);
+                }                
+            } else if (keycode == KeyEvent.VK_A) {
+                if (!getObject(p.getTileX() - 1, p.getTileY()).getClass().equals(wall.getClass())) {
+                    p.move(-1, 0);
+                }
+            } else if (keycode == KeyEvent.VK_S) {
+                if (!getObject(p.getTileX(), p.getTileY() + 1).getClass().equals(wall.getClass())) {
+                    p.move(0, 1);
+                }
+            } else if (keycode == KeyEvent.VK_D) {
+                if (!getObject(p.getTileX() + 1, p.getTileY()).getClass().equals(wall.getClass())) {
+                    p.move(1, 0);
+                }
+            }
+        }
+        
+        public void keyReleased(KeyEvent e) {
+        }
+        
+        public void keyTyped(KeyEvent e) {
+        }
+        
+    }    
 }
