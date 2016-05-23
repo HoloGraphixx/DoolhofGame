@@ -7,6 +7,7 @@ package com.maze.levels;
 
 import com.maze.game.ItemObject;
 import com.maze.game.Player;
+import com.maze.game.Player.Direction;
 import com.maze.objects.Wall;
 import java.awt.Graphics;
 import java.awt.event.ActionEvent;
@@ -14,6 +15,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.util.HashMap;
+import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 
 /**
@@ -96,18 +98,22 @@ public class Level extends JPanel implements ActionListener {
             int keycode = e.getKeyCode();
          
             if (keycode == KeyEvent.VK_W) {
+                p.setImage(Direction.UP);
                 if (!getObject(p.getTileX(), p.getTileY() - 1).getClass().equals(wall.getClass())) {
                     p.move(0, -1);
                 }                
             } else if (keycode == KeyEvent.VK_A) {
+                p.setImage(Direction.LEFT);
                 if (!getObject(p.getTileX() - 1, p.getTileY()).getClass().equals(wall.getClass())) {
                     p.move(-1, 0);
                 }
             } else if (keycode == KeyEvent.VK_S) {
+                p.setImage(Direction.DOWN);
                 if (!getObject(p.getTileX(), p.getTileY() + 1).getClass().equals(wall.getClass())) {
                     p.move(0, 1);
                 }
             } else if (keycode == KeyEvent.VK_D) {
+                p.setImage(Direction.RIGHT);
                 if (!getObject(p.getTileX() + 1, p.getTileY()).getClass().equals(wall.getClass())) {
                     p.move(1, 0);
                 }

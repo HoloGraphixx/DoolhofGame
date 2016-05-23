@@ -18,13 +18,43 @@ public class Player {
     
     private int tileX, tileY;
     
+    private ImageIcon up, right, left, down;
+    
     public Player(int xPos, int yPos) {
-        ImageIcon imageIcon = new ImageIcon("src/com/maze/images/Rock.png");
-        this.image = imageIcon.getImage();
+        this.up = new ImageIcon("src/com/maze/images/Rock.png");
+        this.down = new ImageIcon("src/com/maze/images/Rock.png");
+        this.right = new ImageIcon("src/com/maze/images/Bazooka.png");
+        this.left = new ImageIcon("src/com/maze/images/Rock.png");
+        
+        this.setImage(Direction.DOWN);
         
         // Start position
         this.tileX = xPos;
         this.tileY = yPos;
+    }
+    
+    public void setImage(Direction direction) {
+        ImageIcon imageIcon;
+        
+        switch (direction) {
+            case UP:
+                imageIcon = this.up;
+                break;
+            case DOWN:
+                imageIcon = this.down;    
+                break;
+            case LEFT:
+                imageIcon = this.left;    
+                break;
+            case RIGHT:
+                imageIcon = this.right;    
+                break;
+            default: // FALLBACK
+                imageIcon = this.down;
+                break;
+        }
+    
+        this.image = imageIcon.getImage();
     }
     
     public int getTileX() {
@@ -38,6 +68,10 @@ public class Player {
     public void move(int dx, int dy) {        
         tileX += dx;
         tileY += dy;
+    }
+    
+    public enum Direction {
+        UP, DOWN, RIGHT, LEFT
     }
     
 }
