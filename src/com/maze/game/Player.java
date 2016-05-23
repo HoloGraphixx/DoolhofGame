@@ -18,12 +18,13 @@ public class Player {
     
     private int tileX, tileY;
     
-    public Player() {
-        ImageIcon imageIcon = new ImageIcon("src/com/maze/images/bazooka.png");
+    public Player(int xPos, int yPos) {
+        ImageIcon imageIcon = new ImageIcon("src/com/maze/images/Rock.png");
         this.image = imageIcon.getImage();
         
-        tileX = 1;
-        tileY = 8;
+        // Start position
+        this.tileX = xPos;
+        this.tileY = yPos;
     }
     
     public int getTileX() {

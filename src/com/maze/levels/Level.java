@@ -8,7 +8,6 @@ package com.maze.levels;
 import com.maze.game.ItemObject;
 import com.maze.game.Player;
 import com.maze.objects.Wall;
-import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -31,7 +30,7 @@ public class Level extends JPanel implements ActionListener {
     public String[][] map = new String[ROWS][COLUMNS];
     public ItemObject[][] loadedMap = new ItemObject[ROWS][COLUMNS];
     
-    private Player p = new Player();
+    private Player p = new Player(1, 8);
     
     public Level() {
         addKeyListener(new Al());
