@@ -61,7 +61,12 @@ public class Level extends JPanel implements ActionListener {
             int colsCount = 0;
 
             for (String col : row) {
-                this.loadedMap[rowsCount][colsCount] = objects.get(col);
+                if (objects.get(col).getClass() == new Wall().getClass()) {
+                    this.loadedMap[rowsCount][colsCount] = new Wall();
+                } else {
+                    this.loadedMap[rowsCount][colsCount] = objects.get(col);
+                }                
+                
                 colsCount += 1;
             }
 

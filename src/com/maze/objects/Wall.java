@@ -6,6 +6,7 @@
 package com.maze.objects;
 
 import com.maze.game.ItemObject;
+import java.util.Random;
 
 /**
  *
@@ -15,7 +16,10 @@ public class Wall extends ItemObject {
 
     public Wall() {
 
-        this.setImage("Wall.png");
+        Random random = new Random();
+        int randomInt = random.nextInt(6) + 1;
+        System.out.println(randomInt);
+        this.setImage("tree" + randomInt + ".png");
         
     }
 

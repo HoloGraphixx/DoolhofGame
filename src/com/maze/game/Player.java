@@ -21,10 +21,10 @@ public class Player {
     private ImageIcon up, right, left, down;
     
     public Player(int xPos, int yPos) {
-        this.up = new ImageIcon("src/com/maze/images/Rock.png");
-        this.down = new ImageIcon("src/com/maze/images/Rock.png");
-        this.right = new ImageIcon("src/com/maze/images/Bazooka.png");
-        this.left = new ImageIcon("src/com/maze/images/Rock.png");
+        this.up = new ImageIcon("src/com/maze/images/player_up.png");
+        this.down = new ImageIcon("src/com/maze/images/player_down.png");
+        this.right = new ImageIcon("src/com/maze/images/player_right.png");
+        this.left = new ImageIcon("src/com/maze/images/player_left.png");
         
         this.setImage(Direction.DOWN);
         
