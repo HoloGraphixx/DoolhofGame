@@ -20,7 +20,7 @@ public class Game {
     public static void main(String[] args) {
        
         JFrame frame = new JFrame();
-        LevelGenerator load = new LevelGenerator(frame);
+        LevelManager load = new LevelManager(frame);
         
                 
     }
