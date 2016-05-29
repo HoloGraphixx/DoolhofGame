@@ -11,8 +11,8 @@ import com.maze.game.Player.Direction;
 import com.maze.objects.Cheater;
 import com.maze.objects.Friend;
 import com.maze.objects.Wall;
-import com.maze.game.LevelGenerator;
 import com.maze.objects.Bazooka;
+import com.maze.objects.EmptyTile;
 import com.maze.objects.Helper;
 import java.awt.Graphics;
 import java.awt.event.ActionEvent;
@@ -20,8 +20,6 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.util.HashMap;
-import javax.swing.ImageIcon;
-import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 /**
@@ -111,120 +109,47 @@ public class Level extends JPanel implements ActionListener {
                 if (!getObject(p.getTileX(), p.getTileY() - 1).getClass().equals(wall.getClass())) {
                     p.move(0, -1);
                 }
-
-                if (getObject(p.getTileX(), p.getTileY()).getClass().equals(friend.getClass())) {
-
-                    System.out.println("FRIEND HITTED");
-                   
-                }
-
-                if (getObject(p.getTileX(), p.getTileY()).getClass().equals(cheater.getClass())) {
-
-                    System.out.println("CHEATER HITTED");
-
-                }
-
-                if (getObject(p.getTileX(), p.getTileY()).getClass().equals(helper.getClass())) {
-
-                    System.out.println("HELPER HITTED");
-
-                }
-
-                if (getObject(p.getTileX(), p.getTileY()).getClass().equals(bazooka.getClass())) {
-
-                    System.out.println("BAZOOKA HITTED");
-
-                }
             } else if (keycode == KeyEvent.VK_A) {
                 p.setImage(Direction.LEFT);
                 if (!getObject(p.getTileX() - 1, p.getTileY()).getClass().equals(wall.getClass())) {
                     p.move(-1, 0);
-                }
-
-                if (getObject(p.getTileX(), p.getTileY()).getClass().equals(friend.getClass())) {
-
-                    System.out.println("FRIEND HITTED");
-
-                }
-
-                if (getObject(p.getTileX(), p.getTileY()).getClass().equals(cheater.getClass())) {
-
-                    System.out.println("CHEATER HITTED");
-
-                }
-
-                if (getObject(p.getTileX(), p.getTileY()).getClass().equals(helper.getClass())) {
-
-                    System.out.println("HELPER HITTED");
-
-                }
-
-                if (getObject(p.getTileX(), p.getTileY()).getClass().equals(bazooka.getClass())) {
-
-                    System.out.println("BAZOOKA HITTED");
-
                 }
             } else if (keycode == KeyEvent.VK_S) {
                 p.setImage(Direction.DOWN);
                 if (!getObject(p.getTileX(), p.getTileY() + 1).getClass().equals(wall.getClass())) {
                     p.move(0, 1);
                 }
-
-                if (getObject(p.getTileX(), p.getTileY()).getClass().equals(friend.getClass())) {
-
-                    System.out.println("FRIEND HITTED");
-
-                }
-
-                if (getObject(p.getTileX(), p.getTileY()).getClass().equals(cheater.getClass())) {
-
-                    System.out.println("CHEATER HITTED");
-
-                }
-
-                if (getObject(p.getTileX(), p.getTileY()).getClass().equals(helper.getClass())) {
-
-                    System.out.println("HELPER HITTED");
-
-                }
-
-                if (getObject(p.getTileX(), p.getTileY()).getClass().equals(bazooka.getClass())) {
-
-                    System.out.println("BAZOOKA HITTED");
-
-                }
             } else if (keycode == KeyEvent.VK_D) {
                 p.setImage(Direction.RIGHT);
                 if (!getObject(p.getTileX() + 1, p.getTileY()).getClass().equals(wall.getClass())) {
                     p.move(1, 0);
                 }
-
-                if (getObject(p.getTileX(), p.getTileY()).getClass().equals(friend.getClass())) {
-
-                    System.out.println("FRIEND HITTED");
-
-                }
-
-                if (getObject(p.getTileX(), p.getTileY()).getClass().equals(cheater.getClass())) {
-
-                    System.out.println("CHEATER HITTED");
-
-                }
-
-                if (getObject(p.getTileX(), p.getTileY()).getClass().equals(helper.getClass())) {
-
-                    System.out.println("HELPER HITTED");
-
-                }
-
-                if (getObject(p.getTileX(), p.getTileY()).getClass().equals(bazooka.getClass())) {
-
-                    System.out.println("BAZOOKA HITTED");
-
-                }
             }
+
+            Class object = getObject(p.getTileX(), p.getTileY()).getClass();
+            if (object == friend.getClass()) {
+                System.out.println("FRIEND HITTED");
+                removeObject(p.getTileX(), p.getTileY());
+                
+            } else if (object == cheater.getClass()) {
+                System.out.println("CHEATER HITTED");
+                removeObject(p.getTileX(), p.getTileY());
+                
+            } else if (object == helper.getClass()) {
+                System.out.println("HELPER HITTED");
+                removeObject(p.getTileX(), p.getTileY());
+                
+            } else if (object == bazooka.getClass()) {
+                System.out.println("BAZOOKA HITTED");
+                removeObject(p.getTileX(), p.getTileY());
+            }            
         }
 
+        private void removeObject(int x, int y) {
+            loadedMap[y][x] = new EmptyTile();
+            repaint();
+        }
+        
         public void keyReleased(KeyEvent e) {
         }
 
