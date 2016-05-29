@@ -28,8 +28,8 @@ import javax.swing.JPanel;
  */
 public class Level extends JPanel implements ActionListener {
 
-    final int ROWS = 10;
-    final int COLUMNS = 15;
+    final int ROWS = 15;
+    final int COLUMNS = 21;
 
     public String[][] map = new String[ROWS][COLUMNS];
     public ItemObject[][] loadedMap = new ItemObject[ROWS][COLUMNS];

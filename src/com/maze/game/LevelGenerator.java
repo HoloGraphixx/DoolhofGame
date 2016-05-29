@@ -24,8 +24,8 @@ import javax.swing.JFrame;
 public final class LevelGenerator extends JFrame {
 
     private HashMap<String, ItemObject> objects = new HashMap<>();
-    private int HEIGHT = 559;
-    private int WIDTH = 756;
+    private int HEIGHT = 809;
+    private int WIDTH = 1056;
 
     public JFrame frame = null;
     public Level currentLevel = null;
@@ -75,8 +75,10 @@ public final class LevelGenerator extends JFrame {
                 public void actionPerformed(ActionEvent e) {
                     if (menu.timerState) {
                         menu.timerStop();
+                        
                     } else {
                         menu.timerStart();
+                       
                     }
                 }
             });
