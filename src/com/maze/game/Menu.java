@@ -5,7 +5,9 @@
  */
 package com.maze.game;
 
+import com.maze.menu.Steps;
 import com.maze.menu.Time;
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Timer;
@@ -22,12 +24,17 @@ public final class Menu extends JPanel implements ActionListener {
     private final Time time = new Time();
     private Timer t = new Timer();
     
+    public Steps steps = new Steps();
+    
     public boolean timerState = false;
         
     final JLabel jLabelTime = new JLabel("Time: 00:00:00");
     final JLabel jLabelSteps = new JLabel("Steps: 0");
     
     public Menu() {
+        jLabelTime.setForeground(Color.WHITE);
+        jLabelSteps.setForeground(Color.WHITE);
+        
         this.add(jLabelTime);
         this.add(jLabelSteps);
         
@@ -37,6 +44,12 @@ public final class Menu extends JPanel implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         
+    }
+    
+    public void setSteps() {
+        this.steps.addStep();
+        
+        this.jLabelSteps.setText("Stappen: " + this.steps.getSteps());
     }
     
     public void timerStop() {

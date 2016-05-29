@@ -8,6 +8,7 @@ package com.maze.game;
 import com.maze.levels.*;
 import com.maze.objects.*;
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -29,22 +30,25 @@ public final class LevelManager extends JFrame {
 
     public JFrame frame = null;
     public Level currentLevel = null;
+    public int level = 0;
     
     public Menu menu = new Menu();
+    
+    public LevelManager levelManager = this;
 
     private final List<Level> levels
             = new ArrayList<Level>() {
                 {
-                    add(new Level001());
-                    add(new Level002());
-                    add(new Level003());
+                    add(new Level001(menu, levelManager));
+                    add(new Level002(menu));
+                    add(new Level003(menu));
                 }
             };
 
     public LevelManager(JFrame frame) {
         // Vul de frame
-        this.frame = frame;
-        
+        this.frame = frame;       
+       
         // Vul de objecten lijst
         objects.put("B", new Bazooka());
         objects.put("", new EmptyTile());
@@ -53,6 +57,7 @@ public final class LevelManager extends JFrame {
         objects.put("C", new Cheater());
         objects.put("H", new Helper());
         this.currentLevel = levels.get(0);
+        this.level = 0;
 
         this.load();
     }
@@ -87,6 +92,7 @@ public final class LevelManager extends JFrame {
         if (this.frame != null) {            
             this.frame.setTitle("Doolhof");
             this.frame.setSize(this.WIDTH, this.HEIGHT);
+            this.menu.setBackground(Color.BLACK);
             this.frame.add(this.menu, BorderLayout.NORTH);
             this.frame.add(this.currentLevel, BorderLayout.CENTER);
             this.frame.setResizable(false);
@@ -94,6 +100,16 @@ public final class LevelManager extends JFrame {
             this.frame.setVisible(true);
             
             this.currentLevel.requestFocus();
+        }
+    }
+    
+    public void nextLevel() {
+        if (this.level < 2) {
+            this.level++;
+            this.levels.get(this.level);
+            this.load();
+        } else {
+            // Spel uitgespeeld
         }
     }
 }

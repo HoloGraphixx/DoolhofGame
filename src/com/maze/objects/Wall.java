@@ -15,12 +15,9 @@ import java.util.Random;
 public class Wall extends ItemObject {
 
     public Wall() {
-
         Random random = new Random();
         int randomInt = random.nextInt(6) + 1;
-        System.out.println(randomInt);
-        this.setImage("tree" + randomInt + ".png");
-        
+        this.setImage("tree" + randomInt + ".png");       
     }
 
 }

@@ -6,6 +6,8 @@
 package com.maze.levels;
 
 import com.maze.game.ItemObject;
+import com.maze.game.LevelManager;
+import com.maze.game.Menu;
 import com.maze.game.Player;
 import com.maze.game.Player.Direction;
 import com.maze.objects.Cheater;
@@ -34,8 +36,11 @@ public class Level extends JPanel implements ActionListener {
     public String[][] map = new String[ROWS][COLUMNS];
     public ItemObject[][] loadedMap = new ItemObject[ROWS][COLUMNS];
 
-    private Player p = new Player(1, 8);
-
+    private Player p = new Player(6, 1);
+    
+    public LevelManager levelManager;
+    public Menu menu;
+  
     public Level() {
         addKeyListener(new Al());
         setFocusable(true);
@@ -99,8 +104,7 @@ public class Level extends JPanel implements ActionListener {
     public class Al extends KeyAdapter {
 
         @Override
-        public void keyPressed(KeyEvent e) {
-
+        public void keyPressed(KeyEvent e) {            
             Bazooka bazooka = new Bazooka();
             Helper helper = new Helper();
             Wall wall = new Wall();
@@ -113,21 +117,25 @@ public class Level extends JPanel implements ActionListener {
                 p.setImage(Direction.UP);
                 if (!getObject(p.getTileX(), p.getTileY() - 1).getClass().equals(wall.getClass())) {
                     p.move(0, -1);
+                    menu.setSteps();
                 }
             } else if (keycode == KeyEvent.VK_A) {
                 p.setImage(Direction.LEFT);
                 if (!getObject(p.getTileX() - 1, p.getTileY()).getClass().equals(wall.getClass())) {
                     p.move(-1, 0);
+                    menu.setSteps();
                 }
             } else if (keycode == KeyEvent.VK_S) {
                 p.setImage(Direction.DOWN);
                 if (!getObject(p.getTileX(), p.getTileY() + 1).getClass().equals(wall.getClass())) {
                     p.move(0, 1);
+                    menu.setSteps();
                 }
             } else if (keycode == KeyEvent.VK_D) {
                 p.setImage(Direction.RIGHT);
                 if (!getObject(p.getTileX() + 1, p.getTileY()).getClass().equals(wall.getClass())) {
                     p.move(1, 0);
+                    menu.setSteps();
                 }
             }
 
@@ -135,7 +143,7 @@ public class Level extends JPanel implements ActionListener {
             if (object == friend.getClass()) {
                 System.out.println("FRIEND HITTED");
                 removeObject(p.getTileX(), p.getTileY());
-                
+                levelManager.nextLevel();
             } else if (object == cheater.getClass()) {
                 System.out.println("CHEATER HITTED");
                 removeObject(p.getTileX(), p.getTileY());

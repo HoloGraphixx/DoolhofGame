@@ -5,17 +5,22 @@
  */
 package com.maze.levels;
 
+import com.maze.game.LevelManager;
+import com.maze.game.Menu;
+
 /**
  *
  * @author Thomas
  */
 public class Level001 extends Level {
     
-    public Level001() {
-        String[][] tiles = {    { "W", "W", "W", "W", "W", "W", "W", "W", "W", "W", "W", "W", "W", "W", "W", "W", "W", "W", "W", "W", "W",},
+    public Level001(Menu menu, LevelManager levelManager) {
+        String[][] tiles = 
+        {
+            { "W", "W", "W", "W", "W", "W", "W", "W", "W", "W", "W", "W", "W", "W", "W", "W", "W", "W", "W", "W", "W",},
             { "W", "", "", "", "", "", "", "W", "", "", "", "", "", "", "", "W", "", "", "", "", "W",},
             { "W", "", "W", "W", "W", "W", "W", "W", "", "", "W", "W", "", "W", "W", "W", "", "", "W", "", "W",},
-            { "W", "", "W", "", "", "W", "", "W", "", "", "W", "", "", "", "", "W", "W", "", "W", "", "W",},
+            { "W", "", "W", "", "", "W", "B", "W", "", "", "W", "", "", "", "", "W", "W", "", "W", "", "W",},
             { "W", "", "", "", "", "W", "", "W", "", "", "W", "W", "W", "W", "", "W", "", "", "W", "", "W",},
             { "W", "", "W", "", "", "", "", "W", "W", "", "W", "", "", "", "", "W", "", "W", "W", "", "W",},
             { "W", "", "W", "W", "W", "W", "", "W", "", "", "W", "", "W", "", "W", "W", "", "", "W", "", "W",},
@@ -27,9 +32,10 @@ public class Level001 extends Level {
             { "W", "", "W", "W", "W", "W", "W", "W", "W", "W", "W", "W", "W", "", "W", "W", "", "W", "W", "", "W",},
             { "W", "", "", "", "", "", "", "", "", "", "", "", "W", "", "", "", "", "", "W", "F", "W",},
             { "W", "W", "W", "W", "W", "W", "W", "W", "W", "W", "W", "W", "W", "W", "W", "W", "W", "W", "W", "W", "W",},
-            
-                                };
+        };
      
         super.map = tiles;
+        super.levelManager = levelManager;
+        super.menu = menu;
     }
 }

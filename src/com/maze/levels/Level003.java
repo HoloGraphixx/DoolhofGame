@@ -5,10 +5,17 @@
  */
 package com.maze.levels;
 
+import com.maze.game.Menu;
+
 /**
  *
  * @author Thomas
  */
 public class Level003 extends Level {
+    
+    public Level003(Menu menu) {
+        
+        super.menu = menu;
+    }
     
 }

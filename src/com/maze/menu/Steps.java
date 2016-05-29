@@ -11,7 +11,21 @@ package com.maze.menu;
  */
 public class Steps {
     
+    private Integer steps = 0;
+    
     public Steps() {
         
+    }
+    
+    public void addStep() {
+        this.steps++;
+    }
+    
+    public void addSteps(int steps) {
+        this.steps += steps;
+    }
+    
+    public Integer getSteps() {
+        return this.steps;
     }
 }

@@ -5,13 +5,15 @@
  */
 package com.maze.levels;
 
+import com.maze.game.Menu;
+
 /**
  *
  * @author Thomas
  */
 public class Level002 extends Level {
  
-    public Level002() {
+    public Level002(Menu menu) {
         String[][] tiles = {    { "W", "W", "W", "W", "W", "W", "W", "W", "W", "W", "W", "W", "W", "W", "W" },
                                     { "W", "", "W", "", "", "", "", "", "", "", "", "", "", "", "W" },
                                     { "W", "C", "W", "", "", "W", "W", "W", "", "W", "W", "W", "W", "", "W" },
@@ -25,6 +27,7 @@ public class Level002 extends Level {
                                 };
      
         super.map = tiles;
+        super.menu = menu;
     }
     
     
