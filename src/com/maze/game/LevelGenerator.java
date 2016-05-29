@@ -7,14 +7,14 @@ package com.maze.game;
 
 import com.maze.levels.*;
 import com.maze.objects.*;
+import java.awt.BorderLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
-import java.applet.Applet;
-import java.awt.Graphics;
-import java.awt.GridLayout;
-import java.awt.Image;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import javax.swing.JButton;
 import javax.swing.JFrame;
 
 /**
@@ -24,11 +24,13 @@ import javax.swing.JFrame;
 public final class LevelGenerator extends JFrame {
 
     private HashMap<String, ItemObject> objects = new HashMap<>();
-    private int HEIGHT = 529;
+    private int HEIGHT = 559;
     private int WIDTH = 756;
 
     public JFrame frame = null;
     public Level currentLevel = null;
+    
+    public Menu menu = new Menu();
 
     private final List<Level> levels
             = new ArrayList<Level>() {
@@ -59,14 +61,33 @@ public final class LevelGenerator extends JFrame {
     }
 
     public void start() {
-        if (this.frame != null) {
+            JButton jButtonStart = new JButton("Start");
+            JButton jButtonRestart = new JButton("Restart");
+            
+            this.menu.add(jButtonStart);
+            this.menu.add(jButtonRestart);
+            jButtonRestart.addActionListener(new ActionListener() {
+
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    if (menu.timerState) {
+                        menu.timerStop();
+                    } else {
+                        menu.timerStart();
+                    }
+                }
+            });
+                        
+        if (this.frame != null) {            
             this.frame.setTitle("Doolhof");
             this.frame.setSize(this.WIDTH, this.HEIGHT);
-            this.frame.add(this.currentLevel);
+            this.frame.add(this.menu, BorderLayout.NORTH);
+            this.frame.add(this.currentLevel, BorderLayout.CENTER);
             this.frame.setResizable(false);
             this.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             this.frame.setVisible(true);
             
+            this.currentLevel.requestFocus();
         }
     }
 }
