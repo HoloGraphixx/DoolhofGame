@@ -48,6 +48,9 @@ public final class LevelGenerator extends JFrame {
         objects.put("B", new Bazooka());
         objects.put("", new EmptyTile());
         objects.put("W", new Wall());
+        objects.put("F", new Friend());
+        objects.put("C", new Cheater());
+        objects.put("H", new Helper());
         this.currentLevel = levels.get(0);
 
         this.load();
