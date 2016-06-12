@@ -11,6 +11,7 @@ import com.maze.objects.Cheater;
 import com.maze.objects.EmptyTile;
 import com.maze.objects.Friend;
 import com.maze.objects.Helper;
+import com.maze.objects.Reset;
 import com.maze.objects.Wall;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
@@ -35,6 +36,10 @@ import java.awt.event.KeyEvent;
         
         @Override
         public void keyPressed(KeyEvent e) {
+            if (this.level.started == false) {
+                return;
+            }
+            
             int keycode = e.getKeyCode();
 
             int x = p.getTileX();
@@ -44,25 +49,25 @@ import java.awt.event.KeyEvent;
                 p.setImage(Player.Direction.UP);
                 if (!this.getWallCollision(x, y - 1)) {
                     p.move(0, -1);
-                    menu.setSteps();
+                    menu.addStep();
                 }
             } else if (keycode == KeyEvent.VK_A) {
                 p.setImage(Player.Direction.LEFT);
                 if (!this.getWallCollision(x - 1, y)) {
                     p.move(-1, 0);
-                    menu.setSteps();
+                    menu.addStep();
                 }
             } else if (keycode == KeyEvent.VK_S) {
                 p.setImage(Player.Direction.DOWN);
                 if (!this.getWallCollision(x, y + 1)) {
                     p.move(0, 1);
-                    menu.setSteps();
+                    menu.addStep();
                 }
             } else if (keycode == KeyEvent.VK_D) {
                 p.setImage(Player.Direction.RIGHT);
                 if (!this.getWallCollision(x + 1, y)) {
                     p.move(1, 0);
-                    menu.setSteps();
+                    menu.addStep();
                 }
             } else if (keycode == KeyEvent.VK_SPACE) {
                 if (p.getBazookaShots() > 0) {
@@ -98,31 +103,57 @@ import java.awt.event.KeyEvent;
                     }
                 }
             }
-
-            ItemObject object = getObject(p.getTileX(), p.getTileY());
+            
+            checkEvents();
+        }
+        
+        public void checkEvents() {
+             ItemObject object = getObject(p.getTileX(), p.getTileY());
             if (object instanceof Friend) {
-                System.out.println("FRIEND HITTED");
+                System.out.println("HIT OBJECT: FRIEND");
                 removeObject(p.getTileX(), p.getTileY());
                 this.lm.nextLevel();
             } else if (object instanceof Cheater) {
-                System.out.println("CHEATER HITTED");
-                removeObject(p.getTileX(), p.getTileY());
+                System.out.println("HIT OBJECT: CHEATER");
                 
+                int temp = (Math.random() <= 0.5) ? 1 : 2;
+                if(temp == 1){    
+                    this.menu.addSteps(20);
+                } else {                    
+                    this.menu.time.add20CheatSeconds();
+                }
+                
+                removeObject(p.getTileX(), p.getTileY());
             } else if (object instanceof Helper) {
-                System.out.println("HELPER HITTED");
+                System.out.println("HIT OBJECT: HELPER");
+                
+                Helper helper = (Helper) getObject(p.getTileX(), p.getTileY());
                 removeObject(p.getTileX(), p.getTileY());
                 
+                helper.setLevel(this.level);
+                helper.setDirection(this.level);
+                
+                helper.use();                
             } else if (object instanceof Bazooka) {
-                System.out.println("BAZOOKA HITTED");
+                System.out.println("HIT OBJECT: BAZOOKA");
                 removeObject(p.getTileX(), p.getTileY());
-                p.setBazookaShots(2);
+                p.addBazookaShots(2);
                 this.menu.addShots(2);
-            }            
+            } else if (object instanceof Reset) {
+                System.out.println("HIT OBJECT: Reset");
+                
+                Reset reset = (Reset) getObject(p.getTileX(), p.getTileY());
+                reset.setLevel(this.level);
+                
+                reset.use();
+                
+                removeObject(p.getTileX(), p.getTileY());
+            }
         }
 
         private void removeObject(int x, int y) {
             this.level.loadedMap[y][x] = new EmptyTile();
-            this.level.repaint();
+            //this.level.repaint();
         }
         
         public void keyReleased(KeyEvent e) {

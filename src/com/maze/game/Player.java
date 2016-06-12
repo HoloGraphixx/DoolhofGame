@@ -80,8 +80,8 @@ public class Player {
         UP, DOWN, RIGHT, LEFT
     }
     
-    public void setBazookaShots(int bazookaShots) {
-        this.bazookaShots = bazookaShots;
+    public void addBazookaShots(int bazookaShots) {
+        this.bazookaShots += bazookaShots;
     }
     
     public int getBazookaShots() {
@@ -90,6 +90,10 @@ public class Player {
     
     public void lowerBazookaShots() {
         this.bazookaShots--;
+    }
+    
+    public void resetBazookaShots() {
+        this.bazookaShots = 0;
     }
     
     public void setDirection(Direction direction) {

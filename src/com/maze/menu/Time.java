@@ -5,6 +5,8 @@
  */
 package com.maze.menu;
 
+import com.maze.levels.Level;
+
 /**
  *
  * @author thomas_laptop
@@ -48,7 +50,7 @@ public class Time {
     }
     
     public void addSecond() {
-        if (this.seconds == 59) {
+        if (this.seconds == 60) {
             this.seconds = 0;
             this.addMinute();
         } else {
@@ -57,7 +59,7 @@ public class Time {
     }
     
     private void addMinute() {
-        if (this.minutes == 59) {
+        if (this.minutes == 60) {
             this.addHour();
             this.minutes = 0;
         } else {
@@ -67,5 +69,24 @@ public class Time {
     
     private void addHour() {
         this.hours ++;
+    }
+    
+    public void resetTime() {
+        this.seconds = 0;
+        this.minutes = 0;
+        this.hours = 0;
+    }
+    
+     public void add20CheatSeconds() {
+
+        if (this.seconds == 60) {
+            this.seconds = 0;
+            this.addMinute();
+            this.seconds += 20;
+
+        } else {
+
+            this.seconds += 20;
+        }
     }
 }

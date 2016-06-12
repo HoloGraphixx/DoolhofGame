@@ -13,11 +13,7 @@ import com.maze.game.ItemObject;
  */
 public class Cheater extends ItemObject {
     
-    public Cheater(){
-        
+    public Cheater() {
         this.setImage("Cheater.png");
     }
-    
-    
-    
 }

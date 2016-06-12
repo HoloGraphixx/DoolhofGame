@@ -9,14 +9,11 @@ import com.maze.levels.*;
 import com.maze.objects.*;
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -32,7 +29,7 @@ public final class LevelManager extends JFrame {
     public Level currentLevel = null;
     public int level = 0;
     
-    public Menu menu = new Menu();
+    public Menu menu = new Menu(this);
     
     public Player player;
     
@@ -52,6 +49,11 @@ public final class LevelManager extends JFrame {
         this.frame = frame;
         this.player = new Player(6, 1);
        
+        this.currentLevel = levels.get(0);
+        this.currentLevel.p = this.player;
+        this.currentLevel.addKeyListener(new KeyListener(this));
+        this.level = 0;
+        
         // Vul de objecten lijst
         objects.put("B", new Bazooka());
         objects.put("", new EmptyTile());
@@ -59,10 +61,7 @@ public final class LevelManager extends JFrame {
         objects.put("F", new Friend());
         objects.put("C", new Cheater());
         objects.put("H", new Helper());
-        this.currentLevel = levels.get(0);
-        this.currentLevel.p = this.player;
-        this.currentLevel.addKeyListener(new KeyListener(this));
-        this.level = 0;
+        objects.put("R", new Reset());
 
         this.load();
     }
@@ -75,25 +74,6 @@ public final class LevelManager extends JFrame {
     }
 
     public void start() {
-        JButton jButtonStart = new JButton("Start");
-        JButton jButtonRestart = new JButton("Restart");
-
-        this.menu.add(jButtonStart);
-        this.menu.add(jButtonRestart);
-        jButtonRestart.addActionListener(new ActionListener() {
-
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                if (menu.timerState) {
-                    menu.timerStop();
-
-                } else {
-                    menu.timerStart();
-
-                }
-            }
-        });
-
         if (this.frame != null) {            
             this.frame.setTitle("Doolhof");
             this.frame.setSize(this.WIDTH, this.HEIGHT);
@@ -116,12 +96,30 @@ public final class LevelManager extends JFrame {
             this.currentLevel.p = this.player;
             this.currentLevel.addKeyListener(new KeyListener(this));
             this.player.setPos(this.currentLevel.x, this.currentLevel.y);
-            //this.load();
+            
+            this.player.resetBazookaShots();
+            this.menu.reset();            
+                        
             this.currentLevel.Load(objects);
             this.currentLevel.repaint();
+            this.currentLevel.started = true;
             frame.add(this.currentLevel);
         } else {
             // Spel uitgespeeld
+            JOptionPane.showMessageDialog(this.frame, "Gefeliciteerd, je hebt het spel uitgespeeld!", "Uitgespeeld!", JOptionPane.PLAIN_MESSAGE);
+            System.exit(0);
         }
+    }
+    
+    public void resetLevel() {
+        frame.remove(this.currentLevel);
+        this.player.resetBazookaShots();
+        this.menu.reset();      
+        this.player.setPos(this.currentLevel.x, this.currentLevel.y);
+        this.currentLevel.Load(objects);
+        this.currentLevel.repaint();
+        frame.add(this.currentLevel);
+        
+        System.out.println("Reset map: " + this.currentLevel.name);
     }
 }

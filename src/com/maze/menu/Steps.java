@@ -28,4 +28,8 @@ public class Steps {
     public Integer getSteps() {
         return this.steps;
     }
+    
+    public void resetSteps() {
+        this.steps = 0;
+    }
 }
