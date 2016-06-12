@@ -42,7 +42,7 @@ public class Time {
             second = "0" + this.seconds;
         }
         
-        String time = "Tijd: " + hour + ":" + minute + ":" + second;
+        String time = "Tijd: " + hour + ":" + minute + ":" + second + ",";
         
         return time;
     }

@@ -23,20 +23,23 @@ public final class Menu extends JPanel implements ActionListener {
        
     private final Time time = new Time();
     private Timer t = new Timer();
+    private int bazookaShots = 0;
     
-    public Steps steps = new Steps();
-    
+    public Steps steps = new Steps();    
     public boolean timerState = false;
         
-    final JLabel jLabelTime = new JLabel("Time: 00:00:00");
-    final JLabel jLabelSteps = new JLabel("Steps: 0");
+    final JLabel jLabelTime = new JLabel("Time: 00:00:00,");
+    final JLabel jLabelSteps = new JLabel("Steps: 0,");
+    final JLabel jLabelShots = new JLabel("Bazooka shots: " + bazookaShots);
     
     public Menu() {
         jLabelTime.setForeground(Color.WHITE);
         jLabelSteps.setForeground(Color.WHITE);
+        jLabelShots.setForeground(Color.WHITE);
         
         this.add(jLabelTime);
         this.add(jLabelSteps);
+        this.add(jLabelShots);
         
         this.timerStart();
     }
@@ -46,10 +49,24 @@ public final class Menu extends JPanel implements ActionListener {
         
     }
     
+    public void addShots(int shots) {
+        this.bazookaShots += shots;
+        this.setBazookaShots();
+    }
+    
+    public void shoot() {
+        this.bazookaShots--;
+        this.setBazookaShots();
+    }
+    
+    public void setBazookaShots() {
+        this.jLabelShots.setText("Bazooka shots: " + this.bazookaShots);
+    }
+    
     public void setSteps() {
         this.steps.addStep();
         
-        this.jLabelSteps.setText("Stappen: " + this.steps.getSteps());
+        this.jLabelSteps.setText("Steps: " + this.steps.getSteps() + ",");
     }
     
     public void timerStop() {

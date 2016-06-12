@@ -17,8 +17,9 @@ public class Player {
     public Image image;
     
     private int tileX, tileY;
-    
     private ImageIcon up, right, left, down;
+    private int bazookaShots = 0;   
+    private Direction currentDirection;
     
     public Player(int xPos, int yPos) {
         this.up = new ImageIcon("src/com/maze/images/player_up.png");
@@ -39,18 +40,23 @@ public class Player {
         switch (direction) {
             case UP:
                 imageIcon = this.up;
+                this.setDirection(Direction.UP);
                 break;
             case DOWN:
                 imageIcon = this.down;    
+                this.setDirection(Direction.DOWN);
                 break;
             case LEFT:
                 imageIcon = this.left;    
+                this.setDirection(Direction.LEFT);
                 break;
             case RIGHT:
                 imageIcon = this.right;    
+                this.setDirection(Direction.RIGHT);
                 break;
             default: // FALLBACK
                 imageIcon = this.down;
+                this.setDirection(Direction.DOWN);
                 break;
         }
     
@@ -72,6 +78,31 @@ public class Player {
     
     public enum Direction {
         UP, DOWN, RIGHT, LEFT
+    }
+    
+    public void setBazookaShots(int bazookaShots) {
+        this.bazookaShots = bazookaShots;
+    }
+    
+    public int getBazookaShots() {
+        return this.bazookaShots;
+    }
+    
+    public void lowerBazookaShots() {
+        this.bazookaShots--;
+    }
+    
+    public void setDirection(Direction direction) {
+        this.currentDirection = direction;
+    }
+    
+    public Direction getDirection() {
+        return this.currentDirection;
+    }
+    
+    public void setPos(int x, int y) {
+        this.tileX = x;
+        this.tileY = y;
     }
     
 }

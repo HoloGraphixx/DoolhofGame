@@ -34,20 +34,23 @@ public final class LevelManager extends JFrame {
     
     public Menu menu = new Menu();
     
+    public Player player;
+    
     public LevelManager levelManager = this;
 
-    private final List<Level> levels
-            = new ArrayList<Level>() {
-                {
-                    add(new Level001(menu, levelManager));
-                    add(new Level002(menu));
-                    add(new Level003(menu));
-                }
-            };
+    private final List<Level> levels = new ArrayList<Level>() {
+
+        {
+            add(new Level001("level001", menu, levelManager));
+            add(new Level002("level002", menu, levelManager));
+            add(new Level003("level003", menu, levelManager));
+        }
+    };
 
     public LevelManager(JFrame frame) {
         // Vul de frame
-        this.frame = frame;       
+        this.frame = frame;
+        this.player = new Player(6, 1);
        
         // Vul de objecten lijst
         objects.put("B", new Bazooka());
@@ -57,6 +60,8 @@ public final class LevelManager extends JFrame {
         objects.put("C", new Cheater());
         objects.put("H", new Helper());
         this.currentLevel = levels.get(0);
+        this.currentLevel.p = this.player;
+        this.currentLevel.addKeyListener(new KeyListener(this));
         this.level = 0;
 
         this.load();
@@ -65,30 +70,30 @@ public final class LevelManager extends JFrame {
     /// Laad de map in
     public void load() {
         this.currentLevel.Load(objects);
-
+        
         this.start();
     }
 
     public void start() {
-            JButton jButtonStart = new JButton("Start");
-            JButton jButtonRestart = new JButton("Restart");
-            
-            this.menu.add(jButtonStart);
-            this.menu.add(jButtonRestart);
-            jButtonRestart.addActionListener(new ActionListener() {
+        JButton jButtonStart = new JButton("Start");
+        JButton jButtonRestart = new JButton("Restart");
 
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    if (menu.timerState) {
-                        menu.timerStop();
-                        
-                    } else {
-                        menu.timerStart();
-                       
-                    }
+        this.menu.add(jButtonStart);
+        this.menu.add(jButtonRestart);
+        jButtonRestart.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (menu.timerState) {
+                    menu.timerStop();
+
+                } else {
+                    menu.timerStart();
+
                 }
-            });
-                        
+            }
+        });
+
         if (this.frame != null) {            
             this.frame.setTitle("Doolhof");
             this.frame.setSize(this.WIDTH, this.HEIGHT);
@@ -104,10 +109,17 @@ public final class LevelManager extends JFrame {
     }
     
     public void nextLevel() {
+        frame.remove(this.currentLevel);
         if (this.level < 2) {
             this.level++;
-            this.levels.get(this.level);
-            this.load();
+            this.currentLevel = this.levels.get(this.level);
+            this.currentLevel.p = this.player;
+            this.currentLevel.addKeyListener(new KeyListener(this));
+            this.player.setPos(this.currentLevel.x, this.currentLevel.y);
+            //this.load();
+            this.currentLevel.Load(objects);
+            this.currentLevel.repaint();
+            frame.add(this.currentLevel);
         } else {
             // Spel uitgespeeld
         }

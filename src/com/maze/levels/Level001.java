@@ -14,7 +14,7 @@ import com.maze.game.Menu;
  */
 public class Level001 extends Level {
     
-    public Level001(Menu menu, LevelManager levelManager) {
+    public Level001(String name, Menu menu, LevelManager levelManager) {
         String[][] tiles = 
         {
             { "W", "W", "W", "W", "W", "W", "W", "W", "W", "W", "W", "W", "W", "W", "W", "W", "W", "W", "W", "W", "W",},
@@ -22,7 +22,7 @@ public class Level001 extends Level {
             { "W", "", "W", "W", "W", "W", "W", "W", "", "", "W", "W", "", "W", "W", "W", "", "", "W", "", "W",},
             { "W", "", "W", "", "", "W", "B", "W", "", "", "W", "", "", "", "", "W", "W", "", "W", "", "W",},
             { "W", "", "", "", "", "W", "", "W", "", "", "W", "W", "W", "W", "", "W", "", "", "W", "", "W",},
-            { "W", "", "W", "", "", "", "", "W", "W", "", "W", "", "", "", "", "W", "", "W", "W", "", "W",},
+            { "W", "F", "W", "", "", "", "", "W", "W", "", "W", "", "", "", "", "W", "", "W", "W", "", "W",},
             { "W", "", "W", "W", "W", "W", "", "W", "", "", "W", "", "W", "", "W", "W", "", "", "W", "", "W",},
             { "W", "", "W", "", "", "", "", "W", "", "W", "W", "", "", "", "", "W", "", "", "W", "", "W",},
             { "W", "", "W", "", "W", "W", "W", "W", "", "", "W", "W", "W", "", "W", "W", "", "", "W", "", "W",},
@@ -33,9 +33,14 @@ public class Level001 extends Level {
             { "W", "", "", "", "", "", "", "", "", "", "", "", "W", "", "", "", "", "", "W", "F", "W",},
             { "W", "W", "W", "W", "W", "W", "W", "W", "W", "W", "W", "W", "W", "W", "W", "W", "W", "W", "W", "W", "W",},
         };
-     
+
+        super.name = name;
+
         super.map = tiles;
         super.levelManager = levelManager;
         super.menu = menu;
+        
+        super.x = 6;
+        super.y = 1;
     }
 }

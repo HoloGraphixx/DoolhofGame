@@ -18,11 +18,8 @@ public class Game {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-       
         JFrame frame = new JFrame();
-        LevelManager load = new LevelManager(frame);
-        
-                
+
+        LevelManager lm = new LevelManager(frame);   
     }
-    
 }
