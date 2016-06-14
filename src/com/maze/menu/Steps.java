@@ -16,6 +16,10 @@ public class Steps {
     public Steps() {
         
     }
+
+    public void setSteps(int i) {
+        this.steps = i;
+    }
     
     public void addStep() {
         this.steps++;

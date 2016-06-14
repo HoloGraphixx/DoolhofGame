@@ -21,13 +21,13 @@ import java.util.Stack;
  * @author Tony
  */
 public class Helper extends ItemObject {
-    
+
     Level level;
     private Direction dir;
     private Integer[] directions = new Integer[]{KeyEvent.VK_UP, KeyEvent.VK_RIGHT, KeyEvent.VK_DOWN, KeyEvent.VK_LEFT};
     ArrayList<Stack<ItemObject>> stacks = new ArrayList<>();
     ArrayList<ItemObject> leaves = new ArrayList<>();
-    
+
     public Helper() {
         this.setImage("Helper.png");
     }
@@ -35,11 +35,11 @@ public class Helper extends ItemObject {
     public void setLevel(Level level) {
         this.level = level;
     }
-    
+
     public void setDirection(Level level) {
         this.dir = new Direction(level);
     }
-    
+
     public void draw(Graphics g) {
         g.drawImage(this.getImageIcon().getImage(), (int) this.position.getX() * SIZE, (int) this.position.getY() * SIZE, null);
     }
@@ -59,7 +59,7 @@ public class Helper extends ItemObject {
                 level.queue(road);
             }
         }
-        
+
         this.level.drawQueue();
     }
 

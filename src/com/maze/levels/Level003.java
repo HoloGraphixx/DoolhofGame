@@ -5,8 +5,7 @@
  */
 package com.maze.levels;
 
-import com.maze.game.LevelManager;
-import com.maze.game.Menu;
+import java.awt.Point;
 
 /**
  *
@@ -14,7 +13,7 @@ import com.maze.game.Menu;
  */
 public class Level003 extends Level {
     
-    public Level003(String name, Menu menu, LevelManager levelManager) {
+    public Level003() {
         String[][] tiles = {    { "F", "W", "W", "W", "W", "W", "W", "W", "W", "W", "W", "W", "W", "W", "W" },
                                     { "W", "", "W", "", "", "", "", "", "", "", "", "", "", "", "W" },
                                     { "W", "C", "W", "", "", "W", "W", "W", "", "W", "W", "W", "W", "", "W" },
@@ -26,16 +25,8 @@ public class Level003 extends Level {
                                     { "W", "", "W", "", "", "", "", "", "", "", "", "", "", "", "W" },
                                     { "W", "W", "W", "W", "W", "W", "W", "W", "W", "W", "W", "W", "W", "W", "W" }
                                 };
-
-        super.name = name;
-
-        super.map = tiles;
-        super.menu = menu;
-
-        super.levelManager = levelManager;
         
-        super.x = 6;
-        super.y = 1;
+        super.map = tiles;
+        super.position = new Point(6, 1);
     }
-    
 }

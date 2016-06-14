@@ -22,8 +22,9 @@ public class ItemObject implements Cloneable {
     public static final int SIZE = 50;
     
     private String image = "";
-    private ImageIcon imageIcon;
     private boolean dot = false;
+    private boolean movable = true;
+    
     protected int index = 0;
     
     public ImageIcon getImageIcon() {
@@ -40,6 +41,14 @@ public class ItemObject implements Cloneable {
     
     public void setDot(boolean dot) {
         this.dot = dot;
+    }
+    
+    public boolean isMovable() {
+        return this.movable;
+    }
+    
+    public void setMovable(boolean movable) {
+        this.movable = movable;
     }
     
     public Point getPosition() {
@@ -60,11 +69,9 @@ public class ItemObject implements Cloneable {
     }
     
     public void draw(Graphics g) {
-        //g.drawImage(this.imageIcon.getImage(), (int) this.position.getX() * SIZE, (int) this.position.getY() * SIZE, null);
         if (this.dot) {
             Graphics2D g2d = (Graphics2D) g;
-            g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-            g2d.setColor(Color.YELLOW);
+            g2d.setColor(Color.cyan);
             g2d.fillOval((int) this.position.getX() * SIZE + ((SIZE - 10) / 2), (int) this.position.getY() * SIZE + ((SIZE - 10) / 2), 10, 10);
         }
     }

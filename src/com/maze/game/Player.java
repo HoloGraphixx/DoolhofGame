@@ -6,6 +6,7 @@
 package com.maze.game;
 
 import java.awt.Image;
+import java.awt.Point;
 import javax.swing.ImageIcon;
 
 /**
@@ -104,9 +105,9 @@ public class Player {
         return this.currentDirection;
     }
     
-    public void setPos(int x, int y) {
-        this.tileX = x;
-        this.tileY = y;
+    public void setPos(Point pos) {
+        this.tileX = pos.x;
+        this.tileY = pos.y;
     }
     
 }

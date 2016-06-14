@@ -18,6 +18,7 @@ public class Wall extends ItemObject {
         Random random = new Random();
         int randomInt = random.nextInt(6) + 1;
         this.setImage("tree" + randomInt + ".png");       
+        this.setMovable(false);
     }
 
 }

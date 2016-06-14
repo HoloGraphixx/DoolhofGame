@@ -9,6 +9,7 @@ import com.maze.levels.*;
 import com.maze.objects.*;
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Point;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -21,26 +22,22 @@ import javax.swing.JOptionPane;
  */
 public final class LevelManager extends JFrame {
 
-    private HashMap<String, ItemObject> objects = new HashMap<>();
-    private int HEIGHT = 809;
-    private int WIDTH = 1056;
+    final private HashMap<String, ItemObject> objects = new HashMap<>();
+    final private int HEIGHT = 809;
+    final private int WIDTH = 1056;
 
     public JFrame frame = null;
     public Level currentLevel = null;
     public int level = 0;
-    
     public Menu menu = new Menu(this);
-    
     public Player player;
-    
     public LevelManager levelManager = this;
 
     private final List<Level> levels = new ArrayList<Level>() {
-
         {
-            add(new Level001("level001", menu, levelManager));
-            add(new Level002("level002", menu, levelManager));
-            add(new Level003("level003", menu, levelManager));
+            add(new Level001());
+            add(new Level002());
+            add(new Level003());
         }
     };
 
@@ -51,7 +48,9 @@ public final class LevelManager extends JFrame {
        
         this.currentLevel = levels.get(0);
         this.currentLevel.p = this.player;
-        this.currentLevel.addKeyListener(new KeyListener(this));
+        this.currentLevel.addKeyListener(new KeyListener(this.currentLevel));
+        this.currentLevel.setMenu(this.menu);
+        this.currentLevel.setLevelManager(this);
         this.level = 0;
         
         // Vul de objecten lijst
@@ -94,11 +93,13 @@ public final class LevelManager extends JFrame {
             this.level++;
             this.currentLevel = this.levels.get(this.level);
             this.currentLevel.p = this.player;
-            this.currentLevel.addKeyListener(new KeyListener(this));
-            this.player.setPos(this.currentLevel.x, this.currentLevel.y);
+            this.currentLevel.addKeyListener(new KeyListener(this.currentLevel));
+            this.player.setPos(new Point(this.currentLevel.position.x, this.currentLevel.position.y));
             
             this.player.resetBazookaShots();
-            this.menu.reset();            
+            this.menu.reset();
+            this.currentLevel.setMenu(this.menu);
+            this.currentLevel.setLevelManager(this);
                         
             this.currentLevel.Load(objects);
             this.currentLevel.repaint();
@@ -115,7 +116,7 @@ public final class LevelManager extends JFrame {
         frame.remove(this.currentLevel);
         this.player.resetBazookaShots();
         this.menu.reset();      
-        this.player.setPos(this.currentLevel.x, this.currentLevel.y);
+        this.player.setPos(new Point(this.currentLevel.position.x, this.currentLevel.position.y));
         this.currentLevel.Load(objects);
         this.currentLevel.repaint();
         frame.add(this.currentLevel);

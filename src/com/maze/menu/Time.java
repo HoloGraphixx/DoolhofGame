@@ -58,6 +58,17 @@ public class Time {
         }
     }
     
+    public void takeSecond() {
+        if (this.seconds == 0) {
+            if (this.minutes > 0) {
+                this.takeMinute();
+                this.seconds = 59;
+            }
+        } else {
+            this.seconds--;
+        }
+    }    
+        
     private void addMinute() {
         if (this.minutes == 60) {
             this.addHour();
@@ -67,8 +78,25 @@ public class Time {
         }
     }
     
+    private void takeMinute() {
+        if (this.minutes == 0) {
+            if (this.hours > 0) {
+                this.takeHour();
+                this.minutes = 59;
+            }
+        } else {
+            this.minutes--;
+        }
+    }    
+    
     private void addHour() {
-        this.hours ++;
+        this.hours++;
+    }
+    
+    private void takeHour() {
+        if (this.hours > 0) {
+            this.hours--;
+        }
     }
     
     public void resetTime() {

@@ -21,24 +21,23 @@ import javax.swing.JPanel;
  * @author thomas_laptop
  */
 public final class Menu extends JPanel implements ActionListener {
-       
+
     public Timer t = new Timer();
     private int bazookaShots = 0;
-    
-    public Steps steps = new Steps();    
-    public boolean timerState = false;
-    public final Time time = new Time();
-        
+
+    private Steps steps = new Steps();
+    private final Time time = new Time();
+
     final JLabel jLabelTime = new JLabel("Time: 00:00:00,");
     final JLabel jLabelSteps = new JLabel("Steps: 0,");
     final JLabel jLabelShots = new JLabel("Bazooka shots: " + bazookaShots);
     final JButton jButtonStart = new JButton("Start");
-    
+
     final LevelManager levelManager;
-    
+
     public Menu(LevelManager lm) {
         this.levelManager = lm;
-        
+
         JButton jButtonRestart = new JButton("Restart");
 
         this.add(jButtonStart);
@@ -51,7 +50,7 @@ public final class Menu extends JPanel implements ActionListener {
                 timerStart();
             }
         });
-        
+
         this.add(jButtonRestart);
         jButtonRestart.addActionListener(new ActionListener() {
 
@@ -62,84 +61,101 @@ public final class Menu extends JPanel implements ActionListener {
                 }
             }
         });
-        
+
         jLabelTime.setForeground(Color.WHITE);
         jLabelSteps.setForeground(Color.WHITE);
         jLabelShots.setForeground(Color.WHITE);
-        
+
         this.add(jLabelTime);
         this.add(jLabelSteps);
         this.add(jLabelShots);
-        
-        //this.timerStart();
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        
+
     }
-    
-    public void removeStartButton(){
+
+    public void removeStartButton() {
         this.remove(jButtonStart);
         this.repaint();
     }
-    
+
     public void addShots(int shots) {
         this.bazookaShots += shots;
         this.setBazookaShots();
     }
-    
+
     public void shoot() {
         this.bazookaShots--;
         this.setBazookaShots();
     }
-    
+
     public void setBazookaShots() {
         this.jLabelShots.setText("Bazooka shots: " + this.bazookaShots);
     }
-        
-    public void setSteps() {        
+
+    public void setSteps() {
         this.jLabelSteps.setText("Steps: " + this.steps.getSteps() + ",");
     }
-    
+
     public void addStep() {
         this.steps.addStep();
         this.setSteps();
     }
-    
+
     public void addSteps(int i) {
-        this.steps.addSteps(i);
+        if ((this.steps.getSteps() + i) < 0) {
+            this.steps.setSteps(0);
+        } else {
+            this.steps.addSteps(i);
+        }
+        
         this.setSteps();
     }
     
-    public void timerStop() {
-        this.t.cancel();
-        this.timerState = false;
+    public void takeSteps(int i) {
+        
     }
     
+    public void addSeconds(int i) {
+        for (int i2 = 0; i2 < i; i2++) {
+            this.time.addSecond();
+        }
+    }
+    
+    public void takeSeconds(int i) {
+        for (int i2 = 0; i2 < i; i2++) {
+            this.time.takeSecond();
+        }
+    }
+
+    public void timerStop() {
+        this.t.cancel();
+    }
+
     public void timerStart() {
-        this.timerState = true;
         this.t = new Timer();
-        
+
         t.schedule(new TimerTask() {
 
             @Override
             public void run() {
-                time.addSecond();  
+                time.addSecond();
                 jLabelTime.setText(time.getTime());
             }
         }, 0, 1000);
     }
-    
+
     public void reset() {
         this.steps.resetSteps();
         this.time.resetTime();
         this.bazookaShots = 0;
-        
+
         this.setBazookaShots();
         this.setSteps();
         jLabelTime.setText(time.getTime());
-        
-        System.out.println("Menu reset");
+
+        System.out.println("Level reset");
     }
 }
