@@ -29,6 +29,6 @@ public class Level002 extends Level {
                                 };
 
         super.map = tiles;
-        super.position = new Point(8, 2);
+        super.setPosition(new Point(8, 2));
     }
 }

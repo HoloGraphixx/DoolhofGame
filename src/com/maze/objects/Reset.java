@@ -25,7 +25,7 @@ public class Reset extends ItemObject {
     }
     
     public void use() {
-        level.clearDots();
+        level.clearQuickestRoute();
     }
     
 }

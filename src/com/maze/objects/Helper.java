@@ -7,7 +7,6 @@ package com.maze.objects;
 
 import com.maze.game.Direction;
 import com.maze.game.ItemObject;
-import static com.maze.game.ItemObject.SIZE;
 import com.maze.levels.Level;
 import java.awt.Graphics;
 import java.awt.event.KeyEvent;
@@ -22,11 +21,10 @@ import java.util.Stack;
  */
 public class Helper extends ItemObject {
 
-    Level level;
+    private Level level;
     private Direction dir;
     private Integer[] directions = new Integer[]{KeyEvent.VK_UP, KeyEvent.VK_RIGHT, KeyEvent.VK_DOWN, KeyEvent.VK_LEFT};
-    ArrayList<Stack<ItemObject>> stacks = new ArrayList<>();
-    ArrayList<ItemObject> leaves = new ArrayList<>();
+    private ArrayList<Stack<ItemObject>> stacks = new ArrayList<>();
 
     public Helper() {
         this.setImage("Helper.png");
@@ -41,7 +39,7 @@ public class Helper extends ItemObject {
     }
 
     public void draw(Graphics g) {
-        g.drawImage(this.getImageIcon().getImage(), (int) this.position.getX() * SIZE, (int) this.position.getY() * SIZE, null);
+        g.drawImage(this.getImageIcon().getImage(), (int) this.getPosition().getX() * SIZE, (int) this.getPosition().getY() * SIZE, null);
     }
 
     public void use() {
@@ -60,7 +58,7 @@ public class Helper extends ItemObject {
             }
         }
 
-        this.level.drawQueue();
+        this.level.drawQuickestRoute();
     }
 
     public Stack<ItemObject> findRoute(ItemObject obj, Stack<ItemObject> stack, int index) {

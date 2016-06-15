@@ -12,10 +12,6 @@ package com.maze.menu;
 public class Steps {
     
     private Integer steps = 0;
-    
-    public Steps() {
-        
-    }
 
     public void setSteps(int i) {
         this.steps = i;

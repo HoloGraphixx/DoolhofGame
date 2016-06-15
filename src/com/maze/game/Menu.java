@@ -22,18 +22,18 @@ import javax.swing.JPanel;
  */
 public final class Menu extends JPanel implements ActionListener {
 
-    public Timer t = new Timer();
+    private Timer t = new Timer();
     private int bazookaShots = 0;
 
     private Steps steps = new Steps();
-    private final Time time = new Time();
+    private Time time = new Time();
 
-    final JLabel jLabelTime = new JLabel("Time: 00:00:00,");
-    final JLabel jLabelSteps = new JLabel("Steps: 0,");
-    final JLabel jLabelShots = new JLabel("Bazooka shots: " + bazookaShots);
-    final JButton jButtonStart = new JButton("Start");
+    private JLabel jLabelTime = new JLabel("Time: 00:00:00,");
+    private JLabel jLabelSteps = new JLabel("Steps: 0,");
+    private JLabel jLabelShots = new JLabel("Bazooka shots: " + bazookaShots);
+    private JButton jButtonStart = new JButton("Start");
 
-    final LevelManager levelManager;
+    final private LevelManager levelManager;
 
     public Menu(LevelManager lm) {
         this.levelManager = lm;
@@ -45,7 +45,7 @@ public final class Menu extends JPanel implements ActionListener {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                levelManager.currentLevel.started = true;
+                levelManager.currentLevel.setStarted(true);
                 removeStartButton();
                 timerStart();
             }
@@ -112,10 +112,6 @@ public final class Menu extends JPanel implements ActionListener {
         }
         
         this.setSteps();
-    }
-    
-    public void takeSteps(int i) {
-        
     }
     
     public void addSeconds(int i) {

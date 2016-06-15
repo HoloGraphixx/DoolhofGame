@@ -10,7 +10,6 @@ import com.maze.game.LevelManager;
 import com.maze.game.Menu;
 import com.maze.game.Player;
 import com.maze.game.Player.Direction;
-import com.maze.game.QueueOrderer;
 import com.maze.objects.Bazooka;
 import com.maze.objects.Cheater;
 import com.maze.objects.EmptyTile;
@@ -24,6 +23,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import javax.swing.JPanel;
 
@@ -33,19 +33,18 @@ import javax.swing.JPanel;
  */
 public class Level extends JPanel implements ActionListener {
 
-    final int ROWS = 15;
-    final int COLUMNS = 21;
+    private final int ROWS = 15;
+    private final int COLUMNS = 21;
 
-    public String name;
-    public String[][] map = new String[ROWS][COLUMNS];
-    public ItemObject[][] loadedMap = new ItemObject[ROWS][COLUMNS];
-    public Player p;
-    public Point position;
-    public boolean started = false;
-    public Menu menu;
-    public LevelManager levelManager;
+    protected String[][] map = new String[ROWS][COLUMNS];
+    private ItemObject[][] loadedMap = new ItemObject[ROWS][COLUMNS];
+    private Player player;
+    private Point position;
+    private boolean started = false;
+    private Menu menu;
+    private LevelManager levelManager;
 
-    private ArrayList<ItemObject> queue = new ArrayList<>();
+    private ArrayList<ItemObject> quickestRoute = new ArrayList<>();
 
     public Level() {
         setFocusable(true);
@@ -54,13 +53,33 @@ public class Level extends JPanel implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
     }
-
+    
+    public void setPlayer(Player player) {
+        this.player = player;
+    }
+    
+    public Point getPosition() {
+        return this.position;
+    }
+    
+    public void setPosition(Point position) {
+        this.position = position;
+    }
+    
     public void setMenu(Menu menu) {
         this.menu = menu;
     }
 
     public void setLevelManager(LevelManager levelManager) {
         this.levelManager = levelManager;
+    }
+    
+    public boolean isStarted() {
+        return this.started;
+    }
+    
+    public void setStarted(boolean started) {
+        this.started = started;
     }
 
     public void Load(HashMap<String, ItemObject> objects) {
@@ -86,7 +105,7 @@ public class Level extends JPanel implements ActionListener {
                 }
 
                 Point point = new Point(colsCount, rowsCount);
-                finalObject.position = point;
+                finalObject.setPosition(point);
 
                 this.loadedMap[rowsCount][colsCount] = finalObject;
 
@@ -95,29 +114,29 @@ public class Level extends JPanel implements ActionListener {
             rowsCount += 1;
         }
 
-        System.out.println("Map: " + this.name + " loaded!");
+        System.out.println("Map: " + this.getName() + " loaded!");
     }
 
     public void queue(ItemObject obj) {
-        queue.add(obj);
+        quickestRoute.add(obj);
     }
 
     public ItemObject getGameObject(Point point) {
         return this.loadedMap[(int) point.getY()][(int) point.getX()];
     }
 
-    public void drawQueue() {
+    public void drawQuickestRoute() {
         Graphics g = this.getGraphics();
 
-        Collections.sort(queue, new QueueOrderer());
-        for (ItemObject obj : queue) {
+        Collections.sort(quickestRoute, new QueueOrderer());
+        for (ItemObject obj : quickestRoute) {
 
         }
 
-        this.queue.clear();
+        this.quickestRoute.clear();
     }
 
-    public void clearDots() {
+    public void clearQuickestRoute() {
         for (ItemObject[] y : this.loadedMap) {
             for (ItemObject x : y) {
                 if (x.isDot()) {
@@ -129,39 +148,39 @@ public class Level extends JPanel implements ActionListener {
     }
 
     public void playerMove(Direction direction) {
-        int x = p.getTileX();
-        int y = p.getTileY();
+        int x = player.getTileX();
+        int y = player.getTileY();
 
         switch (direction) {
             case UP:
-                p.setImage(Player.Direction.UP);
+                player.setImage(Player.Direction.UP);
                 
                 if (this.isMovable(x, y - 1)) {
-                    p.move(0, -1);
+                    player.move(0, -1);
                     this.menu.addStep();
                 }
                 break;
             case DOWN:
-                p.setImage(Player.Direction.DOWN);
+                player.setImage(Player.Direction.DOWN);
                 
                 if (this.isMovable(x, y + 1)) {
-                    p.move(0, 1);
+                    player.move(0, 1);
                     this.menu.addStep();
                 }
                 break;
             case LEFT:
-                p.setImage(Player.Direction.LEFT);
+                player.setImage(Player.Direction.LEFT);
                 
                 if (this.isMovable(x - 1, y)) {
-                    p.move(-1, 0);
+                    player.move(-1, 0);
                     this.menu.addStep();
                 }
                 break;
             case RIGHT:
-                p.setImage(Player.Direction.RIGHT);
+                player.setImage(Player.Direction.RIGHT);
                 
                 if (this.isMovable(x + 1, y)) {
-                    p.move(1, 0);
+                    player.move(1, 0);
                     this.menu.addStep();
                 }
                 break;
@@ -169,36 +188,36 @@ public class Level extends JPanel implements ActionListener {
     }
 
     public void shootBazooka() {
-        int x = p.getTileX();
-        int y = p.getTileY();
+        int x = player.getTileX();
+        int y = player.getTileY();
 
-        if (p.getBazookaShots() > 0) {
-            switch (p.getDirection()) {
+        if (player.getBazookaShots() > 0) {
+            switch (player.getDirection()) {
                 case UP:
                     if (!this.isMovable(x, y - 1)) {
                         removeObject(x, y - 1);
-                        p.lowerBazookaShots();
+                        player.lowerBazookaShots();
                         this.menu.shoot();
                     }
                     break;
                 case DOWN:
                     if (!this.isMovable(x, y + 1)) {
                         removeObject(x, y + 1);
-                        p.lowerBazookaShots();
+                        player.lowerBazookaShots();
                         this.menu.shoot();
                     }
                     break;
                 case LEFT:
                     if (!this.isMovable(x - 1, y)) {
                         removeObject(x - 1, y);
-                        p.lowerBazookaShots();
+                        player.lowerBazookaShots();
                         this.menu.shoot();
                     }
                     break;
                 case RIGHT:
                     if (!this.isMovable(x + 1, y)) {
                         removeObject(x + 1, y);
-                        p.lowerBazookaShots();
+                        player.lowerBazookaShots();
                         this.menu.shoot();
                     }
                     break;
@@ -207,10 +226,10 @@ public class Level extends JPanel implements ActionListener {
     }
 
     public void checkEvents() {
-        ItemObject object = getObject(p.getTileX(), p.getTileY());
+        ItemObject object = getObject(player.getTileX(), player.getTileY());
         if (object instanceof Friend) {
             System.out.println("HIT OBJECT: FRIEND");
-            removeObject(p.getTileX(), p.getTileY());
+            removeObject(player.getTileX(), player.getTileY());
             this.levelManager.nextLevel();
         } else if (object instanceof Cheater) {
             System.out.println("HIT OBJECT: CHEATER");
@@ -222,12 +241,12 @@ public class Level extends JPanel implements ActionListener {
                 this.menu.takeSeconds(20);
             }
 
-            removeObject(p.getTileX(), p.getTileY());
+            removeObject(player.getTileX(), player.getTileY());
         } else if (object instanceof Helper) {
             System.out.println("HIT OBJECT: HELPER");
 
-            Helper helper = (Helper) getObject(p.getTileX(), p.getTileY());
-            removeObject(p.getTileX(), p.getTileY());
+            Helper helper = (Helper) getObject(player.getTileX(), player.getTileY());
+            removeObject(player.getTileX(), player.getTileY());
 
             helper.setLevel(this);
             helper.setDirection(this);
@@ -235,18 +254,18 @@ public class Level extends JPanel implements ActionListener {
             helper.use();
         } else if (object instanceof Bazooka) {
             System.out.println("HIT OBJECT: BAZOOKA");
-            removeObject(p.getTileX(), p.getTileY());
-            p.addBazookaShots(2);
+            removeObject(player.getTileX(), player.getTileY());
+            player.addBazookaShots(2);
             this.menu.addShots(2);
         } else if (object instanceof Reset) {
             System.out.println("HIT OBJECT: Reset");
 
-            Reset reset = (Reset) getObject(p.getTileX(), p.getTileY());
+            Reset reset = (Reset) getObject(player.getTileX(), player.getTileY());
             reset.setLevel(this);
 
             reset.use();
 
-            removeObject(p.getTileX(), p.getTileY());
+            removeObject(player.getTileX(), player.getTileY());
         }
     }
 
@@ -287,7 +306,7 @@ public class Level extends JPanel implements ActionListener {
             rowsCount += 1;
         }
 
-        g.drawImage(p.image, p.getTileX() * 50, p.getTileY() * 50, null);
+        g.drawImage(player.getImage(), player.getTileX() * 50, player.getTileY() * 50, null);
 
         repaint();
         grabFocus();
@@ -296,5 +315,13 @@ public class Level extends JPanel implements ActionListener {
 
     public String getName() {
         return this.getClass().toString();
+    }
+    
+    private class QueueOrderer implements Comparator<ItemObject> {
+
+        @Override
+        public int compare(ItemObject object1, ItemObject object2) {
+            return object1.getIndex() - object2.getIndex();
+        }
     }
 }

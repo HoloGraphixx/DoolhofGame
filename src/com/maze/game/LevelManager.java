@@ -47,7 +47,7 @@ public final class LevelManager extends JFrame {
         this.player = new Player(6, 1);
        
         this.currentLevel = levels.get(0);
-        this.currentLevel.p = this.player;
+        this.currentLevel.setPlayer(this.player);
         this.currentLevel.addKeyListener(new KeyListener(this.currentLevel));
         this.currentLevel.setMenu(this.menu);
         this.currentLevel.setLevelManager(this);
@@ -92,9 +92,9 @@ public final class LevelManager extends JFrame {
         if (this.level < 2) {
             this.level++;
             this.currentLevel = this.levels.get(this.level);
-            this.currentLevel.p = this.player;
+            this.currentLevel.setPlayer(this.player);
             this.currentLevel.addKeyListener(new KeyListener(this.currentLevel));
-            this.player.setPos(new Point(this.currentLevel.position.x, this.currentLevel.position.y));
+            this.player.setPosition(new Point(this.currentLevel.getPosition().x, this.currentLevel.getPosition().y));
             
             this.player.resetBazookaShots();
             this.menu.reset();
@@ -103,7 +103,7 @@ public final class LevelManager extends JFrame {
                         
             this.currentLevel.Load(objects);
             this.currentLevel.repaint();
-            this.currentLevel.started = true;
+            this.currentLevel.setStarted(true);
             frame.add(this.currentLevel);
         } else {
             // Spel uitgespeeld
@@ -116,11 +116,11 @@ public final class LevelManager extends JFrame {
         frame.remove(this.currentLevel);
         this.player.resetBazookaShots();
         this.menu.reset();      
-        this.player.setPos(new Point(this.currentLevel.position.x, this.currentLevel.position.y));
+        this.player.setPosition(new Point(this.currentLevel.getPosition().x, this.currentLevel.getPosition().y));
         this.currentLevel.Load(objects);
         this.currentLevel.repaint();
         frame.add(this.currentLevel);
         
-        System.out.println("Reset map: " + this.currentLevel.name);
+        System.out.println("Reset map: " + this.currentLevel.getName());
     }
 }

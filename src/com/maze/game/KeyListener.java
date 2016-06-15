@@ -24,7 +24,7 @@ public class KeyListener extends KeyAdapter {
     @Override
     public void keyPressed(KeyEvent e) {
         // Kijk of het level al gestart is, zo nee: negeer de keyInput
-        if (this.level.started == false) {
+        if (this.level.isStarted() == false) {
             return;
         }
 

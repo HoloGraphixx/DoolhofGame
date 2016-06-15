@@ -5,8 +5,6 @@
  */
 package com.maze.menu;
 
-import com.maze.levels.Level;
-
 /**
  *
  * @author thomas_laptop
@@ -103,18 +101,5 @@ public class Time {
         this.seconds = 0;
         this.minutes = 0;
         this.hours = 0;
-    }
-    
-     public void add20CheatSeconds() {
-
-        if (this.seconds == 60) {
-            this.seconds = 0;
-            this.addMinute();
-            this.seconds += 20;
-
-        } else {
-
-            this.seconds += 20;
-        }
     }
 }

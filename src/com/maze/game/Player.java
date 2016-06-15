@@ -15,7 +15,7 @@ import javax.swing.ImageIcon;
  */
 public class Player {
 
-    public Image image;
+    private Image image;
     
     private int tileX, tileY;
     private ImageIcon up, right, left, down;
@@ -33,6 +33,10 @@ public class Player {
         // Start position
         this.tileX = xPos;
         this.tileY = yPos;
+    }
+    
+    public Image getImage() {
+        return this.image;
     }
     
     public void setImage(Direction direction) {
@@ -105,9 +109,9 @@ public class Player {
         return this.currentDirection;
     }
     
-    public void setPos(Point pos) {
-        this.tileX = pos.x;
-        this.tileY = pos.y;
+    public void setPosition(Point position) {
+        this.tileX = position.x;
+        this.tileY = position.y;
     }
     
 }
