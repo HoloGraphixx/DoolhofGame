@@ -352,6 +352,6 @@ public class Level extends JPanel implements ActionListener {
         @Override
         public int compare(ItemObject object1, ItemObject object2) {
             return object1.getIndex() - object2.getIndex();
-        }s
+        }
     }
 }
