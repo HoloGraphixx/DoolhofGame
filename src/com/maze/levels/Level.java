@@ -196,9 +196,6 @@ public class Level extends JPanel implements ActionListener {
                 case UP:
                     if (!this.isMovable(x, y - 1)) {
 
-                        removeObject(x, y - 1);
-                        player.lowerBazookaShots();
-
                         for (int i = 0; i < player.getTileY(); i++) {
 
                             if (this.getObject(x, y - i) instanceof Wall) {
@@ -206,15 +203,12 @@ public class Level extends JPanel implements ActionListener {
                                 removeObject(x, y - i);
                             }
                         }
-                        //player.lowerBazookaShots();
+                        player.lowerBazookaShots();
                         this.menu.shoot();
                     }
                     break;
                 case DOWN:
                     if (!this.isMovable(x, y + 1)) {
-
-                        removeObject(x, y + 1);
-                        player.lowerBazookaShots();
 
                         for (int i = 0; i < (this.ROWS - 1) - this.player.getTileY(); i++) {
 
@@ -224,16 +218,12 @@ public class Level extends JPanel implements ActionListener {
                             }
                         }
 
-                        //player.lowerBazookaShots();
-
+                        player.lowerBazookaShots();
                         this.menu.shoot();
                     }
                     break;
                 case LEFT:
                     if (!this.isMovable(x - 1, y)) {
-
-                        removeObject(x - 1, y);
-                        player.lowerBazookaShots();
 
                         for (int i = 0; i < this.player.getTileX(); i++) {
 
@@ -243,15 +233,12 @@ public class Level extends JPanel implements ActionListener {
                             }
                         }
 
-                        //player.lowerBazookaShots();
-
+                        player.lowerBazookaShots();
                         this.menu.shoot();
                     }
                     break;
                 case RIGHT:
                     if (!this.isMovable(x + 1, y)) {
-                        removeObject(x + 1, y);
-                        player.lowerBazookaShots();
 
                         for (int i = 0; i < (this.COLUMNS - 1) - this.player.getTileX(); i++) {
 
@@ -261,8 +248,7 @@ public class Level extends JPanel implements ActionListener {
                             }
                         }
 
-                        //player.lowerBazookaShots();
-
+                        player.lowerBazookaShots();
                         this.menu.shoot();
                     }
                     break;
@@ -316,7 +302,6 @@ public class Level extends JPanel implements ActionListener {
 
     private void removeObject(int x, int y) {
         this.loadedMap[y][x] = new EmptyTile();
-        //this.level.repaint();
     }
 
     public boolean isMovable(int x, int y) {
@@ -367,6 +352,6 @@ public class Level extends JPanel implements ActionListener {
         @Override
         public int compare(ItemObject object1, ItemObject object2) {
             return object1.getIndex() - object2.getIndex();
-        }
+        }s
     }
 }
