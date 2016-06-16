@@ -29,7 +29,7 @@ import javax.swing.JPanel;
 
 /**
  *
- * @author Thomas
+ * @author Tony
  */
 public class Level extends JPanel implements ActionListener {
 
@@ -53,19 +53,19 @@ public class Level extends JPanel implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
     }
-    
+
     public void setPlayer(Player player) {
         this.player = player;
     }
-    
+
     public Point getPosition() {
         return this.position;
     }
-    
+
     public void setPosition(Point position) {
         this.position = position;
     }
-    
+
     public void setMenu(Menu menu) {
         this.menu = menu;
     }
@@ -73,11 +73,11 @@ public class Level extends JPanel implements ActionListener {
     public void setLevelManager(LevelManager levelManager) {
         this.levelManager = levelManager;
     }
-    
+
     public boolean isStarted() {
         return this.started;
     }
-    
+
     public void setStarted(boolean started) {
         this.started = started;
     }
@@ -154,7 +154,7 @@ public class Level extends JPanel implements ActionListener {
         switch (direction) {
             case UP:
                 player.setImage(Player.Direction.UP);
-                
+
                 if (this.isMovable(x, y - 1)) {
                     player.move(0, -1);
                     this.menu.addStep();
@@ -162,7 +162,7 @@ public class Level extends JPanel implements ActionListener {
                 break;
             case DOWN:
                 player.setImage(Player.Direction.DOWN);
-                
+
                 if (this.isMovable(x, y + 1)) {
                     player.move(0, 1);
                     this.menu.addStep();
@@ -170,7 +170,7 @@ public class Level extends JPanel implements ActionListener {
                 break;
             case LEFT:
                 player.setImage(Player.Direction.LEFT);
-                
+
                 if (this.isMovable(x - 1, y)) {
                     player.move(-1, 0);
                     this.menu.addStep();
@@ -178,7 +178,7 @@ public class Level extends JPanel implements ActionListener {
                 break;
             case RIGHT:
                 player.setImage(Player.Direction.RIGHT);
-                
+
                 if (this.isMovable(x + 1, y)) {
                     player.move(1, 0);
                     this.menu.addStep();
@@ -195,22 +195,56 @@ public class Level extends JPanel implements ActionListener {
             switch (player.getDirection()) {
                 case UP:
                     if (!this.isMovable(x, y - 1)) {
+
                         removeObject(x, y - 1);
                         player.lowerBazookaShots();
+
+                        for (int i = 0; i < player.getTileY(); i++) {
+
+                            if (this.getObject(x, y - i) instanceof Wall) {
+
+                                removeObject(x, y - i);
+                            }
+                        }
+                        //player.lowerBazookaShots();
                         this.menu.shoot();
                     }
                     break;
                 case DOWN:
                     if (!this.isMovable(x, y + 1)) {
+
                         removeObject(x, y + 1);
                         player.lowerBazookaShots();
+
+                        for (int i = 0; i < (this.ROWS - 1) - this.player.getTileY(); i++) {
+
+                            if (this.getObject(x, y + i) instanceof Wall) {
+
+                                removeObject(x, y + i);
+                            }
+                        }
+
+                        //player.lowerBazookaShots();
+
                         this.menu.shoot();
                     }
                     break;
                 case LEFT:
                     if (!this.isMovable(x - 1, y)) {
+
                         removeObject(x - 1, y);
                         player.lowerBazookaShots();
+
+                        for (int i = 0; i < this.player.getTileX(); i++) {
+
+                            if (this.getObject(x - i, y) instanceof Wall) {
+
+                                removeObject(x - i, y);
+                            }
+                        }
+
+                        //player.lowerBazookaShots();
+
                         this.menu.shoot();
                     }
                     break;
@@ -218,6 +252,17 @@ public class Level extends JPanel implements ActionListener {
                     if (!this.isMovable(x + 1, y)) {
                         removeObject(x + 1, y);
                         player.lowerBazookaShots();
+
+                        for (int i = 0; i < (this.COLUMNS - 1) - this.player.getTileX(); i++) {
+
+                            if (this.getObject(x + i, y) instanceof Wall) {
+
+                                removeObject(x + i, y);
+                            }
+                        }
+
+                        //player.lowerBazookaShots();
+
                         this.menu.shoot();
                     }
                     break;
@@ -316,7 +361,7 @@ public class Level extends JPanel implements ActionListener {
     public String getName() {
         return this.getClass().toString();
     }
-    
+
     private class QueueOrderer implements Comparator<ItemObject> {
 
         @Override
