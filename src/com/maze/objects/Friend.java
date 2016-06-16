@@ -15,6 +15,6 @@ public class Friend extends ItemObject {
     
     public Friend(){
         
-        this.setImage("Fiend.png");
+        this.setImage("Friend.png");
     }
 }
