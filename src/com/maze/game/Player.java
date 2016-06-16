@@ -16,9 +16,10 @@ import javax.swing.ImageIcon;
 public class Player {
 
     private Image image;
+    private ImageIcon currentImageIcon;
     
     private int tileX, tileY;
-    private ImageIcon up, right, left, down;
+    private ImageIcon up, right, right2, left, left2, down;
     private int bazookaShots = 0;   
     private Direction currentDirection;
     
@@ -26,7 +27,9 @@ public class Player {
         this.up = new ImageIcon("src/com/maze/images/player_up.png");
         this.down = new ImageIcon("src/com/maze/images/player_down.png");
         this.right = new ImageIcon("src/com/maze/images/player_right.png");
+        this.right2 = new ImageIcon("src/com/maze/images/player_right_2.png");
         this.left = new ImageIcon("src/com/maze/images/player_left.png");
+        this.left2 = new ImageIcon("src/com/maze/images/player_left_2.png");
         
         this.setImage(Direction.DOWN);
         
@@ -52,11 +55,35 @@ public class Player {
                 this.setDirection(Direction.DOWN);
                 break;
             case LEFT:
-                imageIcon = this.left;    
+                if (this.currentImageIcon != null) {
+                    if (this.currentImageIcon == this.left) {
+                        this.currentImageIcon = this.left2;
+                        imageIcon = this.left2;
+                    } else {
+                        this.currentImageIcon = this.left;
+                        imageIcon = this.left;
+                    }
+                } else {
+                    this.currentImageIcon = this.left;
+                    imageIcon = this.left;
+                }
+                
                 this.setDirection(Direction.LEFT);
                 break;
             case RIGHT:
-                imageIcon = this.right;    
+                if (this.currentImageIcon != null) {
+                    if (this.currentImageIcon == this.right) {
+                        this.currentImageIcon = this.right2;
+                        imageIcon = this.right2;
+                    } else {
+                        this.currentImageIcon = this.right;
+                        imageIcon = this.right;
+                    }
+                } else {
+                    this.currentImageIcon = this.right;
+                    imageIcon = this.right;
+                }
+                
                 this.setDirection(Direction.RIGHT);
                 break;
             default: // FALLBACK
