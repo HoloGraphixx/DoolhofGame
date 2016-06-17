@@ -240,7 +240,7 @@ public class Level extends JPanel implements ActionListener {
                 case RIGHT:
                     if (!this.isMovable(x + 1, y)) {
 
-                        for (int i = 0; i < (this.COLUMNS - 1) - this.player.getTileX(); i++) {
+                        for (int i = 0; i < (this.loadedMap[0].length - 1) - this.player.getTileX(); i++) {
 
                             if (this.getObject(x + i, y) instanceof Wall) {
 

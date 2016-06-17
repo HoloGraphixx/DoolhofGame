@@ -21,5 +21,6 @@ public class Game {
         JFrame frame = new JFrame();
 
         LevelManager lm = new LevelManager(frame);   
+        lm.startGame();
     }
 }

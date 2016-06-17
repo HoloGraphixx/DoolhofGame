@@ -42,6 +42,10 @@ public final class LevelManager extends JFrame {
     };
 
     public LevelManager(JFrame frame) {
+        this.frame = frame;
+    }
+
+    public void startGame() {
         // Vul de frame
         this.frame = frame;
         this.player = new Player(6, 1);
@@ -64,7 +68,7 @@ public final class LevelManager extends JFrame {
 
         this.load();
     }
-
+    
     /// Laad de map in
     public void load() {
         this.currentLevel.Load(objects);
