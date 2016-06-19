@@ -127,12 +127,6 @@ public class Level extends JPanel implements ActionListener {
 
     public void drawQuickestRoute() {
         Graphics g = this.getGraphics();
-
-        Collections.sort(quickestRoute, new QueueOrderer());
-        for (ItemObject obj : quickestRoute) {
-
-        }
-
         this.quickestRoute.clear();
     }
 
@@ -345,13 +339,5 @@ public class Level extends JPanel implements ActionListener {
 
     public String getName() {
         return this.getClass().toString();
-    }
-
-    private class QueueOrderer implements Comparator<ItemObject> {
-
-        @Override
-        public int compare(ItemObject object1, ItemObject object2) {
-            return object1.getIndex() - object2.getIndex();
-        }
     }
 }
